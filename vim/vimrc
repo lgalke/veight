@@ -1,0 +1,43 @@
+runtime essential/vim-pathogen/autoload/pathogen.vim
+
+execute pathogen#infect('stable/{}')
+syntax on
+filetype plugin indent on
+
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+
+let leader = ","
+let mapleader = "ü"
+
+" CtrlP {{{
+let g:ctrlp_extensions = ['tag']
+let g:ctrlp_map = '<leader>,'
+nnoremap <leader>. :CtrlPTag<cr>
+nnoremap <leader>b :CtrlPBuffer<cr>
+" }}}
+" Vimtex {{{
+let g:vimtex_latexmk_continuous = 0
+let g:vimtex_latexmk_background = 1
+let g:vimtex_latexmk_callback = 0
+
+" let g:vimtex_imaps_leader = '`'
+
+let g:vimtex_view_general_viewer = 'okular'
+let g:vimtex_view_general_options = '--unique @pdf\#src:@line@tex'
+let g:vimtex_view_general_options_latexmk = '--unique'
+
+let g:vimtex_fold_enabled = 1
+let g:vimtex_fold_preamble = 1
+let g:vimtex_fold_comments = 1
+let g:vimtex_indent_enabled = 1
+let g:vimtex_indent_bib_enabled = 1
+let g:vimtex_format_enabled = 1 " this did not work well, recheck if fixed
+augroup vimtex_mappings
+  au!
+  au User VimtexEventInitPost nmap <F3> <plug>(vimtex-toc-toggle)
+  au User VimtexEventInitPost nmap ´ <plug>(vimtex-cmd-create)
+  au User VimtexEventInitPost imap ´ <plug>(vimtex-cmd-create)
+augroup END
+" }}}
