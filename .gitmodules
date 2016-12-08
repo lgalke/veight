@@ -1,27 +1,27 @@
 [submodule "vim/stable/ctrlp.vim"]
-	path = vim/stable/ctrlp.vim
+	path = vim/core/ctrlp.vim
 	url = git://github.com/ctrlpvim/ctrlp.vim.git
 [submodule "vim/stable/vim-pathogen"]
-	path = vim/stable/vim-pathogen
+	path = vim/core/vim-pathogen
 	url = git://github.com/tpope/vim-pathogen.git
 [submodule "vim/stable/vim-surround"]
-	path = vim/stable/vim-surround
+	path = vim/core/vim-surround
 	url = git://github.com/tpope/vim-surround.git
 [submodule "vim/stable/vim-repeat"]
-	path = vim/stable/vim-repeat
+	path = vim/core/vim-repeat
 	url = git://github.com/tpope/vim-repeat.git
 [submodule "vim/stable/vim-speeddating"]
-	path = vim/stable/vim-speeddating
+	path = vim/core/vim-speeddating
 	url = git://github.com/tpope/vim-speeddating.git
 [submodule "vim/stable/vim-ragtag"]
-	path = vim/stable/vim-ragtag
+	path = vim/core/vim-ragtag
 	url = git://github.com/tpope/vim-ragtag.git
 [submodule "vim/stable/vim-unimpaired"]
-	path = vim/stable/vim-unimpaired
+	path = vim/core/vim-unimpaired
 	url = git://github.com/tpope/vim-unimpaired.git
 [submodule "vim/stable/vimtex"]
-	path = vim/stable/vimtex
+	path = vim/core/vimtex
 	url = git://github.com/lervag/vimtex.git
 [submodule "vim/stable/vim-commentary"]
-	path = vim/stable/vim-commentary
+	path = vim/core/vim-commentary
 	url = git://github.com/tpope/vim-commentary.git
