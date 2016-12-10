@@ -1,5 +1,5 @@
 [submodule "vim/stable/ctrlp.vim"]
-	path = vim/core/ctrlp.vim
+	path = vim/extra/ctrlp.vim
 	url = git://github.com/ctrlpvim/ctrlp.vim.git
 [submodule "vim/stable/vim-pathogen"]
 	path = vim/core/vim-pathogen
@@ -14,14 +14,74 @@
 	path = vim/core/vim-speeddating
 	url = git://github.com/tpope/vim-speeddating.git
 [submodule "vim/stable/vim-ragtag"]
-	path = vim/core/vim-ragtag
+	path = vim/extra/vim-ragtag
 	url = git://github.com/tpope/vim-ragtag.git
 [submodule "vim/stable/vim-unimpaired"]
 	path = vim/core/vim-unimpaired
 	url = git://github.com/tpope/vim-unimpaired.git
 [submodule "vim/stable/vimtex"]
-	path = vim/core/vimtex
+	path = vim/extra/vimtex
 	url = git://github.com/lervag/vimtex.git
 [submodule "vim/stable/vim-commentary"]
 	path = vim/core/vim-commentary
 	url = git://github.com/tpope/vim-commentary.git
+[submodule "vim/core/vim-vinegar"]
+	path = vim/core/vim-vinegar
+	url = git://github.com/tpope/vim-vinegar.git
+[submodule "vim/core/vim-abolish"]
+	path = vim/core/vim-abolish
+	url = git://github.com/tpope/vim-abolish.git
+[submodule "vim/core/vim-sleuth"]
+	path = vim/core/vim-sleuth
+	url = git://github.com/tpope/vim-sleuth.git
+[submodule "vim/core/vim-eunuch"]
+	path = vim/core/vim-eunuch
+	url = git://github.com/tpope/vim-eunuch.git
+[submodule "vim/core/vim-endwise"]
+	path = vim/core/vim-endwise
+	url = git://github.com/tpope/vim-endwise.git
+[submodule "vim/core/vim-scriptease"]
+	path = vim/core/vim-scriptease
+	url = git://github.com/tpope/vim-scriptease.git
+[submodule "vim/core/vim-characterize"]
+	path = vim/core/vim-characterize
+	url = git://github.com/tpope/vim-characterize.git
+[submodule "vim/core/vim-sensible"]
+	path = vim/core/vim-sensible
+	url = git://github.com/tpope/vim-sensible.git
+[submodule "vim/extra/vim-dispatch"]
+	path = vim/core/vim-dispatch
+	url = git://github.com/tpope/vim-dispatch.git
+[submodule "vim/extra/vim-projectionist"]
+	path = vim/extra/vim-projectionist
+	url = git://github.com/tpope/vim-projectionist.git
+[submodule "vim/community/vim-dotoo"]
+	path = vim/community/vim-dotoo
+	url = git://github.com/dhruvasagar/vim-dotoo.git
+[submodule "vim/community/vim-table-mode"]
+	path = vim/community/vim-table-mode
+	url = git://github.com/dhruvasagar/vim-table-mode.git
+[submodule "vim/extra/vim-flagship"]
+	path = vim/extra/vim-flagship
+	url = git://github.com/tpope/vim-flagship.git
+[submodule "vim/extra/syntastic"]
+	path = vim/extra/syntastic
+	url = git://github.com/vim-syntastic/syntastic.git
+[submodule "vim/extra/vim-argumentative"]
+	path = vim/extra/vim-argumentative
+	url = https://github.com/PeterRincker/vim-argumentative.git
+[submodule "vim/extra/tabular"]
+	path = vim/extra/tabular
+	url = https://github.com/godlygeek/tabular.git
+[submodule "vim/extra/vim-indent-object"]
+	path = vim/extra/vim-indent-object
+	url = https://github.com/michaeljsmith/vim-indent-object.git
+[submodule "vim/community/badwolf"]
+	path = vim/community/badwolf
+	url = https://github.com/sjl/badwolf.git
+[submodule "vim/core/vim-fugitive"]
+	path = vim/core/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive.git
+[submodule "vim/testing/tagbar"]
+	path = vim/testing/tagbar
+	url = https://github.com/majutsushi/tagbar.git
