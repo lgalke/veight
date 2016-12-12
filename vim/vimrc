@@ -1,14 +1,19 @@
 set nocompatible
 runtime core/vim-pathogen/autoload/pathogen.vim
-execute pathogen#infect('core/{}', 'extra/{}')
+execute pathogen#infect('core/{}', 'extra/{}', 'community/{}', 'testing/{}')
 syntax on
 filetype plugin indent on
 
 
+" Basic Options {{{
 set autowrite
 set foldmethod=marker
 set showtabline=2
 set guioptions-=e "recommended by flagship
+set ignorecase smartcase
+set showcmd
+set wrap
+" }}}
 
 if has('conceal')
   set conceallevel=2 concealcursor=niv
@@ -22,11 +27,16 @@ inoremap <C-C> <Esc>`^
 vnoremap <Space> I<Space><Esc>gv
 nnoremap <Space> za
 
-" Core {{{
+" Section: Core {{{
+" Markdown {{{
 let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
-let g:ragtag_global_maps = 1
 " }}}
-" Extra {{{
+" Fugitive {{{
+nmap <leader>gs :Gstatus
+nmap <leader>gw :Gwrite
+" }}}
+" }}}
+" Section: Extra {{{
 nnoremap <leader>m :Make<cr>
 nnoremap <leader>d :Dispatch<cr>
 " CtrlP {{{
@@ -36,7 +46,12 @@ nnoremap <leader>b :CtrlPBuffer<cr>
 let g:ctrlp_extensions = ['tag']
 " }}}
 " Flagship {{{
-
+augroup veight_flagship
+  au!
+  autocmd User Flags call Hoist("window", "SyntasticStatuslineFlag")
+  autocmd User Flags call Hoist("window", "%{tagbar#currenttag('[%s]', '')}")
+augroup END
+let g:ragtag_global_maps = 1
 " }}}
 " Vimtex {{{
 let g:vimtex_latexmk_continuous = 0
@@ -60,4 +75,59 @@ augroup vimtex_mappings
   au User VimtexEventInitPost nmap <F3> <plug>(vimtex-toc-toggle)
 augroup END
 " }}}
+" Syntastic {{{
+let g:syntastic_check_on_open            = 1
+let g:syntastic_check_on_wq              = 0
+let g:syntastic_auto_jump                = 0
+" dont clutter the loc list
+let g:syntastic_always_populate_loc_list = 0
+let g:loc_list_height                    = 5
+let g:syntastic_aggregate_errors         = 1
+let g:syntastic_id_checkers              = 1
+let g:syntastic_auto_loc_list            = 0
+" invoke error loc list manually
+nmap <silent> <leader>e :Errors<CR>
+" tex checker
+let g:syntastic_tex_checkers = ["chktex", "lacheck"]
+" 1: Cmd terminated with space
+" 8: Wrong type of dashes
+" 36: spaces around braces
+let g:syntastic_tex_chktex_args = "-n1 -n8 -n36"
+" python checker
+let g:syntastic_python_checkers = ['python', 'flake8']
+let g:syntastic_python_python_exec = '/usr/bin/python3'
+let g:syntastic_python_flake8_exec = '/usr/bin/python3'
+let g:syntastic_python_flake8_args = '-m flake8 --ignore=E501,E203'
 " }}}
+" }}}
+" Section: Community {{{
+" dotoo
+let g:dotoo#agenda#files = ['~/.plan/*.dotoo', '~/git/vec4ir/vec4ir.dotoo']
+" pandoc
+let g:pandoc#filetypes#pandoc_markdown = 0
+let g:pandoc#filetypes#handled = ["pandoc"]
+let g:pandoc#modules#disabled = ["menu"]
+let g:pandoc#syntax#conceal#urls = 1
+" }}}
+" Section: Testing {{{
+" tagbar
+nmap <F2> :TagbarToggle<CR>
+" vcm + vimtex
+augroup VimCompletesMeTex
+  autocmd!
+  autocmd FileType tex let b:vcm_omni_pattern =
+        \ '\v\\%('
+        \ . '\a*cite\a*%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
+        \ . '|\a*ref%(\s*\{[^}]*|range\s*\{[^,}]*%(}\{)?)'
+        \ . '|hyperref\s*\[[^]]*'
+        \ . '|includegraphics\*?%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
+        \ . '|%(include%(only)?|input)\s*\{[^}]*'
+        \ . '|\a*(gls|Gls|GLS)(pl)?\a*%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
+        \ . '|includepdf%(\s*\[[^]]*\])?\s*\{[^}]*'
+        \ . '|includestandalone%(\s*\[[^]]*\])?\s*\{[^}]*'
+        \ . ')'
+augroup END
+" }}}
+
+silent! colo vividchalk
+

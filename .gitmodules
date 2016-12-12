@@ -85,3 +85,15 @@
 [submodule "vim/testing/tagbar"]
 	path = vim/testing/tagbar
 	url = https://github.com/majutsushi/tagbar.git
+[submodule "vim/extra/vim-tbone"]
+	path = vim/extra/vim-tbone
+	url = https://github.com/tpope/vim-tbone.git
+[submodule "vim/extra/vim-jdaddy"]
+	path = vim/extra/vim-jdaddy
+	url = https://github.com/tpope/vim-jdaddy.git
+[submodule "vim/community/vim-vividchalk"]
+	path = vim/community/vim-vividchalk
+	url = https://github.com/tpope/vim-vividchalk.git
+[submodule "vim/testing/VimCompletesMe"]
+	path = vim/testing/VimCompletesMe
+	url = https://github.com/ajh17/VimCompletesMe.git
