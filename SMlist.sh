@@ -1,2 +1,6 @@
 #!/usr/bin/env sh
-git submodule | grep $@
+if [ "$#" -lt 1 ]; then
+	git submodule
+else
+	git submodule | grep $@
+fi
