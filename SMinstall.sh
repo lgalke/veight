@@ -3,4 +3,4 @@ VEIGHT=$( cd $(dirname "$0"); pwd -P)
 REPO=$VEIGHT/vim/$1
 TARGET="https://github.com/$2.git"
 echo "[+] Installing $TARGET in $REPO"
-cd $REPO && git submodule add $TARGET
+cd $REPO && git submodule add --force $TARGET
