@@ -2,3 +2,6 @@
   [ ] Write a script to update all submodules
 CLOSED: [2016-12-11 Sun 15:24]
 
+* Bugged submodule
+  Investigate why tomasr/molokai does not appear in submodule list
+

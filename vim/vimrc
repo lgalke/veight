@@ -25,7 +25,6 @@ set statusline=%#CursorLineNr#%3.3c\ %*[%n]\%<\ %f\ %H%M%R%=
 if has('persistent_undo')
   set undofile	" keep an undo file (undo changes after closing)
 endif
-packadd! matchit
 " }}}
 
 " Maps {{{
