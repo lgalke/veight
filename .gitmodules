@@ -1,5 +1,5 @@
 [submodule "vim/stable/ctrlp.vim"]
-	path = vim/extra/ctrlp.vim
+	path = vim/core/ctrlp.vim
 	url = git://github.com/ctrlpvim/ctrlp.vim.git
 [submodule "vim/stable/vim-pathogen"]
 	path = vim/core/vim-pathogen
@@ -62,19 +62,19 @@
 	path = vim/community/vim-table-mode
 	url = git://github.com/dhruvasagar/vim-table-mode.git
 [submodule "vim/extra/vim-flagship"]
-	path = vim/extra/vim-flagship
+	path = vim/core/vim-flagship
 	url = git://github.com/tpope/vim-flagship.git
 [submodule "vim/extra/syntastic"]
 	path = vim/extra/syntastic
 	url = git://github.com/vim-syntastic/syntastic.git
 [submodule "vim/extra/vim-argumentative"]
-	path = vim/extra/vim-argumentative
+	path = vim/core/vim-argumentative
 	url = https://github.com/PeterRincker/vim-argumentative.git
 [submodule "vim/extra/tabular"]
-	path = vim/extra/tabular
+	path = vim/core/tabular
 	url = https://github.com/godlygeek/tabular.git
 [submodule "vim/extra/vim-indent-object"]
-	path = vim/extra/vim-indent-object
+	path = vim/core/vim-indent-object
 	url = https://github.com/michaeljsmith/vim-indent-object.git
 [submodule "vim/community/badwolf"]
 	path = vim/community/badwolf
@@ -83,7 +83,7 @@
 	path = vim/core/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
 [submodule "vim/testing/tagbar"]
-	path = vim/testing/tagbar
+	path = vim/core/tagbar
 	url = https://github.com/majutsushi/tagbar.git
 [submodule "vim/extra/vim-tbone"]
 	path = vim/extra/vim-tbone
@@ -103,9 +103,21 @@
 [submodule "vim/extra/vim-signify"]
 	path = vim/community/vim-signify
 	url = https://github.com/mhinz/vim-signify.git
-[submodule "vim/testing/vim-gitgutter"]
-	path = vim/disabled/vim-gitgutter
-	url = https://github.com/airblade/vim-gitgutter.git
 [submodule "vim/community/molokai"]
 	path = vim/community/molokai
 	url = https://github.com/tomasr/molokai.git
+[submodule "vim/community/typescript-vim"]
+	path = vim/community/typescript-vim
+	url = https://github.com/leafgarland/typescript-vim.git
+[submodule "vim/community/vim-pandoc"]
+	path = vim/extra/vim-pandoc
+	url = https://github.com/vim-pandoc/vim-pandoc.git
+[submodule "vim/community/vim-pandoc-syntax"]
+	path = vim/community/vim-pandoc-syntax
+	url = https://github.com/vim-pandoc/vim-pandoc-syntax.git
+[submodule "vim/community/vim-srcery"]
+	path = vim/community/vim-srcery
+	url = https://github.com/roosta/vim-srcery.git
+[submodule "vim/community/harlequin"]
+	path = vim/community/harlequin
+	url = https://github.com/nielsmadan/harlequin.git

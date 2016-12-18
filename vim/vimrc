@@ -4,58 +4,92 @@ execute pathogen#infect('core/{}', 'extra/{}', 'community/{}', 'testing/{}')
 syntax on
 filetype plugin indent on
 
-
-" Basic Options {{{
+" Section: Basic Options {{{
 set autowrite
 set foldmethod=marker
 set showtabline=2
 set guioptions-=e "recommended by flagship
 set ignorecase smartcase
 set showcmd
+set showmatch
 set wrap
 set list
 set number relativenumber
-set listchars=eol:¶,tab:¦-,trail:-,extends:»,precedes:«,nbsp:±
+set listchars=eol:¶,tab:¦-,trail:°,extends:»,precedes:«,nbsp:±
 " better default comment string for a lot of configuratoin files
 set commentstring=#\ %s
 "LineNr
 set noruler
-set statusline=%#CursorLineNr#%3.3c\ %*[%n]\%<\ %f\ %H%M%R%=
+"makes statusline col indicator always display in line
+set signcolumn=yes
 " %=%-14.(%l,%c%V%)\ %P
 if has('persistent_undo')
   set undofile	" keep an undo file (undo changes after closing)
 endif
+
+" wild menu
+" typescript development
+set wildignore+=*.js,*.map
+
 " }}}
-
-" Maps {{{
-
+" Section: Maps {{{
 if has('conceal')
-  set conceallevel=2 concealcursor=v
+  set conceallevel=2 concealcursor=
 endif
 
 let mapleader = ","
 let maplocalleader = "\\"
 
-nnoremap <C-S> :w<cr>
+" movement
 nnoremap H ^
 nnoremap L $
-nnoremap ä :
-inoremap <C-C> <Esc>`^
+" command line
+nnoremap + :
+nnoremap @+ @:
+" modes
+" Convenience
 vnoremap <Space> I<Space><Esc>gv
 nnoremap <Space> za
-"}}}
+inoremap <C-C> <Esc>`^
+nnoremap <C-S> :w<cr>
+nmap <F2> :TagbarToggle<CR>
 
-" Autocmds {{{
+"Quick access
+nnoremap <leader>vv :Vedit vimrc<cr>
+nnoremap <leader>vm :Vedit vimrc<cr>
+"}}}
+" Section: Autocmds {{{
 augroup veight
   au!
   autocmd FileType help nnoremap <buffer> q :q!<cr>
+  autocmd FileType mail setlocal formatoptions+=aw
+  autocmd FileType pandoc let b:dispatch=":Pandoc! pdf"
+  autocmd BufReadPost * if getline(1) =~# '^#!' | let b:dispatch = getline(1)[2:-1] . ' %' | let b:start = b:dispatch | endif
 augroup END
 
 " }}}
-
 " Section: Core {{{
 " Markdown {{{
 let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
+" }}}
+" Flagship {{{
+" cursorline
+set statusline=%#CursorLineNr#%3.3c%*
+" buffer number and modified
+set statusline+=\ %N%M
+" file
+set statusline+=\ %f\ %(@%{fugitive#head()}%)
+" usual stuff
+set statusline+=\ %H%R
+set statusline+=%=
+augroup veight_flagship
+  au!
+  " this is necessary because (vim-signify|vim-gitgutter) somehow breaks colors
+  let hl_as_usual = {"hl": ['Statusline', 'StatusLineNC']}
+  " autocmd User Flags call Hoist("buffer", -10, hl_as_usual, function('fugitive#statusline'))
+  autocmd User Flags call Hoist("window", +10, {"hl": ['WarningMsg','StatusLineNC']}, 'SyntasticStatuslineFlag')
+  autocmd User Flags call Hoist("window", -10, hl_as_usual, "%{tagbar#currenttag('[%s]', '')}")
+augroup END
 " }}}
 " Fugitive {{{
 nmap <leader>gs :Gstatus<cr>
@@ -65,28 +99,24 @@ nmap <leader>gp :Gpush<cr>
 nmap <leader>gf :Gfetch<cr>
 nmap <leader>gm :Gmerge<cr>
 " }}}
+" Tabularize {{{
+nnoremap <leader>t= :Tabularize /=/
+nnoremap <leader>t& :Tabularize /&/
 " }}}
-" Section: Extra {{{
-nnoremap <leader>m :Make<cr>
-nnoremap <leader>d :Dispatch<cr>
 " CtrlP {{{
 let g:ctrlp_map = '<leader>,'
 nnoremap <leader>. :CtrlPTag<cr>
 nnoremap <leader>b :CtrlPBuffer<cr>
 let g:ctrlp_extensions = ['tag']
 " }}}
-" Flagship {{{
-augroup veight_flagship
-  au!
-  " this is necessary because (vim-signify|vim-gitgutter) somehow breaks colors
-  let hl_as_usual = {"hl": ['Statusline', 'StatusLineNC']}
-  autocmd User Flags call Hoist("buffer", 0, hl_as_usual, function('fugitive#statusline'))
-  autocmd User Flags call Hoist("window", 0, {"hl": ['WarningMsg','StatusLineNC']}, 'SyntasticStatuslineFlag')
-  autocmd User Flags call Hoist("window", 0, hl_as_usual, "%{tagbar#currenttag('[%s]', '')}")
-  " does not work
-  " autocmd User Flags call Hoist("window", 0, hl_as_usual, function('tagbar#currenttag', ['%s', '']))
-augroup END
-let g:ragtag_global_maps = 1
+" }}}
+" Section: Extra {{{
+" Dispatch {{{
+nnoremap <leader>m :Make<cr>
+nnoremap <leader>d :Dispatch<cr>
+" }}}
+" Ragtag {{{
+let ragtag_global_maps = 1
 " }}}
 " Vimtex {{{
 let g:vimtex_latexmk_continuous = 0
@@ -145,8 +175,10 @@ let g:pandoc#modules#disabled = ["menu"]
 let g:pandoc#syntax#conceal#urls = 1
 " }}}
 " Section: Testing {{{
+" signify
+let g:signify_vcs_list = [ 'git' ]
+let g:signify_line_highlight = 0
 " tagbar
-nmap <F2> :TagbarToggle<CR>
 " vcm + vimtex
 augroup VimCompletesMeTex
   autocmd!
@@ -164,6 +196,5 @@ augroup VimCompletesMeTex
 augroup END
 " }}}
 
-silent! colo vividchalk
-
-
+set background=dark
+silent! colo molokai
