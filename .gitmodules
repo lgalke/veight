@@ -121,3 +121,6 @@
 [submodule "vim/community/harlequin"]
 	path = vim/community/harlequin
 	url = https://github.com/nielsmadan/harlequin.git
+[submodule "vim/community/vim-signify"]
+	path = vim/community/vim-signify
+	url = https://github.com/mhinz/vim-signify.git
