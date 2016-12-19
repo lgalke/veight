@@ -1,6 +1,6 @@
 set nocompatible
-runtime core/vim-pathogen/autoload/pathogen.vim
-execute pathogen#infect('core/{}', 'extra/{}', 'community/{}', 'testing/{}')
+" runtime core/vim-pathogen/autoload/pathogen.vim
+" execute pathogen#infect('core/{}', 'extra/{}', 'community/{}', 'testing/{}')
 syntax on
 filetype plugin indent on
 
@@ -15,7 +15,7 @@ set showmatch
 set wrap
 set list
 set number relativenumber
-set listchars=eol:¶,tab:¦-,trail:°,extends:»,precedes:«,nbsp:±
+set listchars=eol:¶,tab:¦-,trail:¸,extends:»,precedes:«,nbsp:±
 " better default comment string for a lot of configuratoin files
 set commentstring=#\ %s
 "LineNr
@@ -52,7 +52,6 @@ vnoremap <Space> I<Space><Esc>gv
 nnoremap <Space> za
 inoremap <C-C> <Esc>`^
 nnoremap <C-S> :w<cr>
-nmap <F2> :TagbarToggle<CR>
 
 "Quick access
 nnoremap <leader>vv :Vedit vimrc<cr>
@@ -88,6 +87,7 @@ augroup veight_flagship
   let hl_as_usual = {"hl": ['Statusline', 'StatusLineNC']}
   " autocmd User Flags call Hoist("buffer", -10, hl_as_usual, function('fugitive#statusline'))
   autocmd User Flags call Hoist("window", +10, {"hl": ['WarningMsg','StatusLineNC']}, 'SyntasticStatuslineFlag')
+  autocmd User Flags call Hoist("buffer", 0, hl_as_usual, '%{g:asyncrun_status}')
   autocmd User Flags call Hoist("window", -10, hl_as_usual, "%{tagbar#currenttag('[%s]', '')}")
 augroup END
 " }}}
@@ -99,7 +99,7 @@ nmap <leader>gp :Gpush<cr>
 nmap <leader>gf :Gfetch<cr>
 nmap <leader>gm :Gmerge<cr>
 " }}}
-" Tabularize {{{
+" Tabular {{{
 nnoremap <leader>t= :Tabularize /=/
 nnoremap <leader>t& :Tabularize /&/
 " }}}
@@ -111,12 +111,15 @@ let g:ctrlp_extensions = ['tag']
 " }}}
 " }}}
 " Section: Extra {{{
+" PyMode{{{
+let g:pymode_indent = 0
+" }}}
 " Dispatch {{{
 nnoremap <leader>m :Make<cr>
 nnoremap <leader>d :Dispatch<cr>
 " }}}
 " Ragtag {{{
-let ragtag_global_maps = 1
+let g:ragtag_global_maps = 1
 " }}}
 " Vimtex {{{
 let g:vimtex_latexmk_continuous = 0
@@ -175,11 +178,14 @@ let g:pandoc#modules#disabled = ["menu"]
 let g:pandoc#syntax#conceal#urls = 1
 " }}}
 " Section: Testing {{{
-" signify
+" Signify {{{
 let g:signify_vcs_list = [ 'git' ]
 let g:signify_line_highlight = 0
-" tagbar
-" vcm + vimtex
+" }}}
+" TagBar {{{
+nmap <F2> :TagbarToggle<CR>
+" }}}
+" VimCompletesMe + vimtex {{{
 augroup VimCompletesMeTex
   autocmd!
   autocmd FileType tex let b:vcm_omni_pattern =
@@ -195,6 +201,7 @@ augroup VimCompletesMeTex
         \ . ')'
 augroup END
 " }}}
+" }}}
 
 set background=dark
-silent! colo molokai
+silent! colo badwolf

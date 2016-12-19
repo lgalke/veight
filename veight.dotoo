@@ -2,6 +2,12 @@
   [ ] Write a script to update all submodules
 CLOSED: [2016-12-11 Sun 15:24]
 
-* Bugged submodule
-  Investigate why tomasr/molokai does not appear in submodule list
-
+* NEXT Make use of Vim8 Package Feature
+  - pack/core/start
+  - pack/core/opt
+  - pack/extra/start
+  - pack/extra/opt
+  - pack/community/start
+  - pack/community/opt
+  - pack/testing/start
+  - pack/testing/opt
