@@ -127,3 +127,6 @@
 [submodule "vim/testing/asyncrun.vim"]
 	path = vim/pack/testing/start/asyncrun.vim
 	url = https://github.com/skywind3000/asyncrun.vim.git
+[submodule "vim/pack/extra/opt/python-mode"]
+	path = vim/pack/extra/opt/python-mode
+	url = https://github.com/python-mode/python-mode.git
