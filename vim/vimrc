@@ -41,6 +41,7 @@ let mapleader = ","
 let maplocalleader = "\\"
 
 " movement
+nmap <Tab> %
 nnoremap H ^
 nnoremap L $
 " command line
