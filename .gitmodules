@@ -157,9 +157,9 @@
 [submodule "vim/pack/community/start/vim-table-mode"]
 	path = vim/pack/community/start/vim-table-mode
 	url = https://github.com/dhruvasagar/vim-table-mode.git
-[submodule "vim/pack/extra/vim-flagship"]
-	path = vim/pack/extra/vim-flagship
-	url = https://github.com/tpope/vim-flagship.git
 [submodule "vim/pack/extra/opt/syntastic"]
 	path = vim/pack/extra/opt/syntastic
 	url = https://github.com/vim-syntastic/syntastic.git
+[submodule "vim/pack/extra/start/vim-flagship"]
+	path = vim/pack/extra/start/vim-flagship
+	url = https://github.com/tpope/vim-flagship.git
