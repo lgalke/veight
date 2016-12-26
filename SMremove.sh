@@ -3,7 +3,7 @@ if [ $# -lt 2 ]; then
 fi
 
 VEIGHT=$( cd $(dirname "$0"); pwd -P)
-REPO=$VEIGHT/vim/$1
+REPO=$VEIGHT/vim/pack/$1
 TARGET="$2"
 echo "[-] Removing $TARGET in $REPO"
 cd $REPO && git rm -rf --ignore-unmatch $TARGET && rm -rf $TARGET

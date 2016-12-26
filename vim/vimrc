@@ -1,8 +1,6 @@
 set nocompatible
 " runtime core/vim-pathogen/autoload/pathogen.vim
 " execute pathogen#infect('core/{}', 'extra/{}', 'community/{}', 'testing/{}')
-syntax on
-filetype plugin indent on
 
 " Section: Basic Options {{{
 set autowrite
@@ -13,14 +11,19 @@ set ignorecase smartcase
 set showcmd
 set showmatch
 set wrap
-set list
+if has("linebreak")
+  " dont break in the middle of a word
+  set linebreak
+  " ident line breaks
+  set breakindent
+  let &showbreak = "+++ "
+endif
+set nolist
 set number relativenumber
-set listchars=eol:¶,tab:¦-,trail:¸,extends:»,precedes:«,nbsp:±
+set listchars=eol:¶,tab:¦-,trail:±,extends:»,precedes:«,nbsp:¬
 " better default comment string for a lot of configuratoin files
 set commentstring=#\ %s
-"LineNr
 set noruler
-"makes statusline col indicator always display in line
 set signcolumn=yes
 " %=%-14.(%l,%c%V%)\ %P
 if has('persistent_undo')
@@ -30,6 +33,7 @@ endif
 " wild menu
 " typescript development
 set wildignore+=*.js,*.map
+let g:tex_flavor = 'latex'
 
 " }}}
 " Section: Maps {{{
@@ -56,16 +60,48 @@ nnoremap <C-S> :w<cr>
 
 "Quick access
 nnoremap <leader>vv :Vedit vimrc<cr>
-nnoremap <leader>vm :Vedit vimrc<cr>
 "}}}
+" Section: Commands {{{
+" command! -complete=packadd -nargs=1 Packadd packadd <args> | write | edit %
+command! -bar -bang -complete=packadd -nargs=1 Packadd packadd<bang> <args> | doautoall BufRead
+command! -bar -nargs=0 Helptags silent! helptags ALL
+
+function! s:Tags() abort
+  silent let dir = system("git rev-parse --show-toplevel")
+  if v:shell_error
+    let tagsfile = "tags"
+  else
+    let tagsfile = dir . "/.git/tags"
+  endif
+  let cmd = ['ctags', '-R', '-f', tagsfile]
+  let job = job_start(cmd)
+endfunction
+
+command! -bar -nargs=0 Tags call <SID>Tags()
+" }}}
 " Section: Autocmds {{{
-augroup veight
-  au!
-  autocmd FileType help nnoremap <buffer> q :q!<cr>
-  autocmd FileType mail setlocal formatoptions+=aw
-  autocmd FileType pandoc let b:dispatch=":Pandoc! pdf"
-  autocmd BufReadPost * if getline(1) =~# '^#!' | let b:dispatch = getline(1)[2:-1] . ' %' | let b:start = b:dispatch | endif
-augroup END
+if has("autocmd")
+  augroup veight
+    au!
+    " q enough
+    autocmd FileType help nnoremap <buffer> q :q!<cr>
+    " as recommended to not write ugly mails for others
+    autocmd FileType mail setlocal formatoptions+=aw
+    " make useful dispatch
+    autocmd FileType pandoc let b:dispatch=":Pandoc pdf"
+    autocmd FileType dot let b:dispatch="dot -Tpdf -o %:r.pdf %"
+    " guess the dispatch
+    autocmd BufReadPost * if getline(1) =~# '^#!' | let b:dispatch = getline(1)[2:-1] . ' %' | let b:start = b:dispatch | endif
+    " to fix unfolding at reading, try if it is enough!
+    autocmd BufReadPost * execute "normal zvzz"
+    autocmd FileType html setlocal foldmethod=marker foldmarker=<div,/div>
+    " autocmd FileType pandoc,tex let b:AutoPairs = {'(':')','[':']','{':'}', '$':'$', '`':'`'}
+    if exists("+omnifunc")
+      autocmd Filetype * if &omnifunc == "" | setlocal omnifunc=syntaxcomplete#Complete | endif
+    endif
+    autocmd FileType tex syn sync minlines=1000 maxlines=4000
+  augroup END
+endif
 
 " }}}
 " Section: Core {{{
@@ -73,12 +109,12 @@ augroup END
 let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
 " }}}
 " Flagship {{{
-" cursorline
-set statusline=%#CursorLineNr#%3.3c%*
+" this is hacky to fix with to 2
+set statusline=%#SignColumn#%-2.2(%M\ %)%*
+set statusline+=%#CursorLineNr#%4.4(%c%)%*
 " buffer number and modified
-set statusline+=\ %N%M
+set statusline+=[b%n\ %f%(\ *%{fugitive#head()}%)]
 " file
-set statusline+=\ %f\ %(@%{fugitive#head()}%)
 " usual stuff
 set statusline+=\ %H%R
 set statusline+=%=
@@ -112,8 +148,11 @@ let g:ctrlp_extensions = ['tag']
 " }}}
 " }}}
 " Section: Extra {{{
+" XPTemplate {{{
+let g:xptemplate_vars="$author=Lukas\ Galke&$email=vim@lpag.de"
+" }}}
 " PyMode{{{
-let g:pymode_indent = 0
+" let g:pymode_indent = 0
 " }}}
 " Dispatch {{{
 nnoremap <leader>m :Make<cr>
@@ -121,6 +160,10 @@ nnoremap <leader>d :Dispatch<cr>
 " }}}
 " Ragtag {{{
 let g:ragtag_global_maps = 1
+" }}}
+" Table-Mode {{{
+let g:table_mode_corner = '|'
+nmap <leader>,tr :TablemodeRealign<cr>
 " }}}
 " Vimtex {{{
 let g:vimtex_latexmk_continuous = 0
@@ -168,6 +211,14 @@ let g:syntastic_python_python_exec = '/usr/bin/python3'
 let g:syntastic_python_flake8_exec = '/usr/bin/python3'
 let g:syntastic_python_flake8_args = '-m flake8 --ignore=E501,E203'
 " }}}
+" UltiSnips {{{
+let g:UltiSnipsListSnippets = "<c-r><c-r><tab>"
+let g:UltiSnipsExpandTrigger = '<tab>'
+" let g:UltiSnipsExpandTrigger = "<c-j>"
+let g:UltiSnipsJumpForwardTrigger = "<c-j>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
+inoremap <c-x><c-k> <c-x><c-k>
+" }}}
 " }}}
 " Section: Community {{{
 " dotoo
@@ -179,6 +230,10 @@ let g:pandoc#modules#disabled = ["menu"]
 let g:pandoc#syntax#conceal#urls = 1
 " }}}
 " Section: Testing {{{
+" Async {{{ "
+nnoremap <leader>at :AsyncRun ctags -R<cr>
+nnoremap <leader>ao :AsyncRun okular %:r.pdf
+" }}} Async "
 " Signify {{{
 let g:signify_vcs_list = [ 'git' ]
 let g:signify_line_highlight = 0
@@ -203,6 +258,19 @@ augroup VimCompletesMeTex
 augroup END
 " }}}
 " }}}
+" the packs {{{ "
+" need to load vimtex as usual
+packadd vim-pathogen
+execute pathogen#infect()
+" }}} the packs "
 
-set background=dark
-silent! colo badwolf
+syntax on
+filetype plugin indent on
+
+if !exists('$TMUX')
+  " this should only be used if outside tmux
+  set termguicolors
+endif
+
+set background=light
+silent! colo gruvbox

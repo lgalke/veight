@@ -3,9 +3,11 @@
 Fresh and clean vim setup, motivated by recent Vim8 release.
 
 ## Structure
-- vim : Base directory for plugins and vimrc. Link this to `~/.vim`
-- vim/community : Mainly aesthetics and convenience, easily exchangable.
-- vim/extra : Useful in general but not considered core.
-- vim/core : Core functionalities
-- vim/testing : Highly volatile plugins, potentially including my own.
-- vim/vimrc : The configuration file.
+  - pack/core/start : Modifies vim at its core functionalities, or plugins without competetive alternative. 
+  - pack/core/opt   : Optional core plugins, such as syntastic
+  - pack/extra/start : Does not fit in core, mostly filetype plugins
+  - pack/extra/opt
+  - pack/community/start : Aesthetics
+  - pack/community/opt : Here are the color schemes
+  - pack/testing/start
+  - pack/testing/opt

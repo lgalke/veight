@@ -19,9 +19,6 @@
 [submodule "vim/stable/vim-unimpaired"]
 	path = vim/pack/core/start/vim-unimpaired
 	url = git://github.com/tpope/vim-unimpaired.git
-[submodule "vim/stable/vimtex"]
-	path = vim/pack/extra/start/vimtex
-	url = git://github.com/lervag/vimtex.git
 [submodule "vim/stable/vim-commentary"]
 	path = vim/pack/core/start/vim-commentary
 	url = git://github.com/tpope/vim-commentary.git
@@ -130,3 +127,39 @@
 [submodule "vim/pack/extra/opt/python-mode"]
 	path = vim/pack/extra/opt/python-mode
 	url = https://github.com/python-mode/python-mode.git
+[submodule "vim/pack/community/opt/vim-solarized8"]
+	path = vim/pack/community/opt/vim-solarized8
+	url = https://github.com/lifepillar/vim-solarized8.git
+[submodule "vim/pack/extra/opt/xptemplate"]
+	path = vim/pack/extra/opt/xptemplate
+	url = https://github.com/drmingdrmer/xptemplate.git
+[submodule "vim/pack/extra/start/vimtex"]
+	path = vim/bundle/vimtex
+	url = https://github.com/lervag/vimtex.git
+[submodule "vim/pack/community/opt/gruvbox"]
+	path = vim/pack/community/opt/gruvbox
+	url = https://github.com/morhetz/gruvbox.git
+[submodule "vim/pack/community/opt/jellybeans.vim"]
+	path = vim/pack/community/opt/jellybeans.vim
+	url = https://github.com/nanotech/jellybeans.vim.git
+[submodule "vim/pack/extra/opt/vim-snippets"]
+	path = vim/pack/extra/opt/vim-snippets
+	url = https://github.com/honza/vim-snippets.git
+[submodule "vim/pack/extra/opt/ultisnips"]
+	path = vim/pack/extra/opt/ultisnips
+	url = https://github.com/SirVer/ultisnips.git
+[submodule "vim/pack/extra/opt/vim-bootstrap4-snippets"]
+	path = vim/pack/extra/opt/vim-bootstrap4-snippets
+	url = https://github.com/jvanja/vim-bootstrap4-snippets.git
+[submodule "vim/pack/core/start/splitjoin.vim"]
+	path = vim/pack/core/start/splitjoin.vim
+	url = https://github.com/AndrewRadev/splitjoin.vim.git
+[submodule "vim/pack/core/opt/supertab"]
+	path = vim/pack/core/start/supertab
+	url = https://github.com/ervandew/supertab.git
+[submodule "vim/pack/core/start/securemodelines"]
+	path = vim/pack/core/start/securemodelines
+	url = https://github.com/ciaranm/securemodelines.git
+[submodule "vim/pack/community/start/vimperator.vim"]
+	path = vim/pack/community/start/vimperator.vim
+	url = https://github.com/vimperator/vimperator.vim.git

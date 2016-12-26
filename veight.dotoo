@@ -11,3 +11,8 @@ CLOSED: [2016-12-11 Sun 15:24]
   - pack/community/opt
   - pack/testing/start
   - pack/testing/opt
+
+* TODO Decide for Snippets Plugin
+  - neosnippet
+  - ultisnippets
+  - xptemplate
