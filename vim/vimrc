@@ -23,7 +23,6 @@ set listchars=eol:¶,tab:¦-,trail:±,extends:»,precedes:«,nbsp:¬
 " better default comment string for a lot of configuratoin files
 set commentstring=#\ %s
 set noruler
-set signcolumn=yes
 set dictionary+=/usr/share/dict/words
 " %=%-14.(%l,%c%V%)\ %P
 if has('persistent_undo')
@@ -35,6 +34,10 @@ endif
 set wildignore+=*.js,*.map
 let g:tex_flavor = 'latex'
 
+" vim8 specific
+if v:version > 800
+  set signcolumn=yes
+endif
 " }}}
 " Section: Maps {{{
 if has('conceal')
@@ -291,7 +294,7 @@ endif
 syntax on
 filetype plugin indent on
 
-if !exists('$TMUX')
+if !exists('$TMUX') && v:version > 800
   " this should only be used if outside tmux
   set termguicolors
 endif
