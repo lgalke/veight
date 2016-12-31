@@ -1,6 +1,4 @@
 set nocompatible
-" runtime core/vim-pathogen/autoload/pathogen.vim
-" execute pathogen#infect('core/{}', 'extra/{}', 'community/{}', 'testing/{}')
 
 " Section: Basic Options {{{
 set autowrite
@@ -20,11 +18,13 @@ if has("linebreak")
 endif
 set nolist
 set number relativenumber
+set visualbell
 set listchars=eol:¶,tab:¦-,trail:±,extends:»,precedes:«,nbsp:¬
 " better default comment string for a lot of configuratoin files
 set commentstring=#\ %s
 set noruler
 set signcolumn=yes
+set dictionary+=/usr/share/dict/words
 " %=%-14.(%l,%c%V%)\ %P
 if has('persistent_undo')
   set undofile	" keep an undo file (undo changes after closing)
@@ -94,15 +94,20 @@ if has("autocmd")
     autocmd BufReadPost * if getline(1) =~# '^#!' | let b:dispatch = getline(1)[2:-1] . ' %' | let b:start = b:dispatch | endif
     " to fix unfolding at reading, try if it is enough!
     autocmd BufReadPost * execute "normal zvzz"
-    autocmd FileType html setlocal foldmethod=marker foldmarker=<div,/div>
+    autocmd FileType html setlocal foldmethod=marker foldmarker=<div,/div> iskeyword+=-
     " autocmd FileType pandoc,tex let b:AutoPairs = {'(':')','[':']','{':'}', '$':'$', '`':'`'}
     if exists("+omnifunc")
       autocmd Filetype * if &omnifunc == "" | setlocal omnifunc=syntaxcomplete#Complete | endif
     endif
     autocmd FileType tex syn sync minlines=1000 maxlines=4000
+          \ | let b:surround_{char2nr('x')} = "\\texttt{\r}"
+          \ | let b:surround_{char2nr('l')} = "\\\1identifier\1{\r}"
+          \ | let b:surround_{char2nr('e')} = "\\begin{\1environment\1}\n\r\n\\end{\1\1}"
+          \ | let b:surround_{char2nr('v')} = "\\verb|\r|"
+          \ | let b:surround_{char2nr('V')} = "\\begin{verbatim}\n\r\n\\end{verbatim}"
+    autocmd FileType tex,mail if exists(':Thesaurus') | setlocal keywordprg=:Thesaurus | endif
   augroup END
 endif
-
 " }}}
 " Section: Core {{{
 " Markdown {{{
@@ -212,12 +217,15 @@ let g:syntastic_python_flake8_exec = '/usr/bin/python3'
 let g:syntastic_python_flake8_args = '-m flake8 --ignore=E501,E203'
 " }}}
 " UltiSnips {{{
-let g:UltiSnipsListSnippets = "<c-r><c-r><tab>"
-let g:UltiSnipsExpandTrigger = '<tab>'
-" let g:UltiSnipsExpandTrigger = "<c-j>"
+let g:UltiSnipsSnippetsDir = "~/.vim/UltiSnips"
+let g:UltiSnipsListSnippets = "<c-r><c-r><c-j>"
+let g:UltiSnipsExpandTrigger = "<c-j>"
 let g:UltiSnipsJumpForwardTrigger = "<c-j>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
 inoremap <c-x><c-k> <c-x><c-k>
+" }}}
+" python-mode {{{
+let g:pymode_lint_ignore= "E501"
 " }}}
 " }}}
 " Section: Community {{{
@@ -228,6 +236,7 @@ let g:pandoc#filetypes#pandoc_markdown = 0
 let g:pandoc#filetypes#handled = ["pandoc"]
 let g:pandoc#modules#disabled = ["menu"]
 let g:pandoc#syntax#conceal#urls = 1
+
 " }}}
 " Section: Testing {{{
 " Async {{{ "
@@ -260,8 +269,23 @@ augroup END
 " }}}
 " the packs {{{ "
 " need to load vimtex as usual
-packadd vim-pathogen
-execute pathogen#infect()
+
+" Provides :Man
+runtime! ftplugin/man.vim
+set keywordprg=:Man
+
+if !has('packages')
+  " BACKWARDS COMPATIBLE
+  runtime pack/core/opt/vim-pathogen/autoload/pathogen.vim
+  execute pathogen#infect('pack/core/start/{}', 'pack/extra/start/{}', 'pack/community/start/{}', 'pack/testing/start/{}')
+else
+  packadd vim-pathogen
+endif
+execute pathogen#infect('bundle/{}')
+
+if has('syntax') && has('eval')
+  packadd matchit
+endif
 " }}} the packs "
 
 syntax on
@@ -272,5 +296,11 @@ if !exists('$TMUX')
   set termguicolors
 endif
 
-set background=light
+if filereadable('Session.vim') && argc() == 0
+  " restore session if file is present in directory and vim was
+  " started without arguments, do BufRead autocommands after
+  source Session.vim
+endif
+
+set background=dark
 silent! colo gruvbox

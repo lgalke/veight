@@ -37,9 +37,6 @@
 [submodule "vim/community/molokai"]
 	path = vim/pack/community/opt/molokai
 	url = https://github.com/tomasr/molokai.git
-[submodule "vim/community/typescript-vim"]
-	path = vim/pack/community/start/typescript-vim
-	url = https://github.com/leafgarland/typescript-vim.git
 [submodule "vim/community/vim-pandoc"]
 	path = vim/pack/extra/start/vim-pandoc
 	url = https://github.com/vim-pandoc/vim-pandoc.git
@@ -88,9 +85,6 @@
 [submodule "vim/pack/core/start/splitjoin.vim"]
 	path = vim/pack/core/start/splitjoin.vim
 	url = https://github.com/AndrewRadev/splitjoin.vim.git
-[submodule "vim/pack/core/opt/supertab"]
-	path = vim/pack/core/start/supertab
-	url = https://github.com/ervandew/supertab.git
 [submodule "vim/pack/core/start/securemodelines"]
 	path = vim/pack/core/start/securemodelines
 	url = https://github.com/ciaranm/securemodelines.git
@@ -163,3 +157,15 @@
 [submodule "vim/pack/extra/start/vim-flagship"]
 	path = vim/pack/extra/start/vim-flagship
 	url = https://github.com/tpope/vim-flagship.git
+[submodule "vim/pack/community/opt/vim-online-thesaurus"]
+	path = vim/pack/community/start/vim-online-thesaurus
+	url = https://github.com/beloglazov/vim-online-thesaurus.git
+[submodule "vim/pack/core/start/vim-obsession"]
+	path = vim/pack/core/start/vim-obsession
+	url = https://github.com/tpope/vim-obsession.git
+[submodule "vim/pack/extra/opt/emmet-vim"]
+	path = vim/pack/extra/opt/emmet-vim
+	url = https://github.com/mattn/emmet-vim.git
+[submodule "vim/pack/community/start/yats.vim"]
+	path = vim/pack/community/start/yats.vim
+	url = https://github.com/HerringtonDarkholme/yats.vim.git
