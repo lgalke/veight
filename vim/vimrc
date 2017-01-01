@@ -282,6 +282,7 @@ if !has('packages')
   runtime pack/core/opt/vim-pathogen/autoload/pathogen.vim
   echom "vim < 8 compat mode by infecting with pathogen"
   execute pathogen#infect('pack/core/start/{}', 'pack/extra/start/{}', 'pack/community/start/{}', 'pack/testing/start/{}')
+  execute pathogen#infect('pack/core/opt/{}', 'pack/extra/opt/{}', 'pack/community/opt/{}', 'pack/testing/opt/{}')
 else
   packadd vim-pathogen
 endif
