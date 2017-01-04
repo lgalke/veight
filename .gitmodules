@@ -169,3 +169,6 @@
 [submodule "vim/pack/community/start/yats.vim"]
 	path = vim/pack/community/start/yats.vim
 	url = https://github.com/HerringtonDarkholme/yats.vim.git
+[submodule "vim/pack/testing/opt/completor.vim"]
+	path = vim/pack/testing/opt/completor.vim
+	url = https://github.com/maralla/completor.vim.git

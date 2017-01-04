@@ -28,11 +28,12 @@ set dictionary+=/usr/share/dict/words
 if has('persistent_undo')
   set undofile	" keep an undo file (undo changes after closing)
 endif
+let g:tex_flavor = 'latex'
 
 " wild menu
 " typescript development
 set wildignore+=*.js,*.map
-let g:tex_flavor = 'latex'
+set wildmode=longest:full,full
 
 " vim8 specific
 if v:version > 800
@@ -63,6 +64,7 @@ nnoremap <C-S> :w<cr>
 
 "Quick access
 nnoremap <leader>vv :Vedit vimrc<cr>
+nnoremap <leader>vx :Vedit personal/ftplugin<cr>
 "}}}
 " Section: Commands {{{
 " command! -complete=packadd -nargs=1 Packadd packadd <args> | write | edit %
@@ -95,14 +97,12 @@ if has("autocmd")
     autocmd FileType dot let b:dispatch="dot -Tpdf -o %:r.pdf %"
     " guess the dispatch
     autocmd BufReadPost * if getline(1) =~# '^#!' | let b:dispatch = getline(1)[2:-1] . ' %' | let b:start = b:dispatch | endif
-    " to fix unfolding at reading, try if it is enough!
-    autocmd BufReadPost * execute "normal zvzz"
     autocmd FileType html setlocal foldmethod=marker foldmarker=<div,/div> iskeyword+=-
     " autocmd FileType pandoc,tex let b:AutoPairs = {'(':')','[':']','{':'}', '$':'$', '`':'`'}
     if exists("+omnifunc")
       autocmd Filetype * if &omnifunc == "" | setlocal omnifunc=syntaxcomplete#Complete | endif
     endif
-    autocmd FileType tex syn sync minlines=1000 maxlines=4000
+    autocmd FileType tex syn sync minlines=500 maxlines=2000
           \ | let b:surround_{char2nr('x')} = "\\texttt{\r}"
           \ | let b:surround_{char2nr('l')} = "\\\1identifier\1{\r}"
           \ | let b:surround_{char2nr('e')} = "\\begin{\1environment\1}\n\r\n\\end{\1\1}"
@@ -161,6 +161,7 @@ let g:xptemplate_vars="$author=Lukas\ Galke&$email=vim@lpag.de"
 " }}}
 " PyMode{{{
 " let g:pymode_indent = 0
+let g:pymode_python = 'python3'
 " }}}
 " Dispatch {{{
 nnoremap <leader>m :Make<cr>
@@ -287,6 +288,9 @@ else
   packadd vim-pathogen
 endif
 execute pathogen#infect('bundle/{}')
+
+" letz try to run xptemplate all the time
+packadd xptemplate
 
 if has('syntax') && has('eval')
   packadd matchit
