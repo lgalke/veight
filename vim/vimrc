@@ -1,5 +1,8 @@
 set nocompatible
 
+syntax on
+filetype plugin indent on
+
 " Section: Basic Options {{{
 set autowrite
 set foldmethod=marker
@@ -109,6 +112,11 @@ if has("autocmd")
           \ | let b:surround_{char2nr('v')} = "\\verb|\r|"
           \ | let b:surround_{char2nr('V')} = "\\begin{verbatim}\n\r\n\\end{verbatim}"
     autocmd FileType tex,mail if exists(':Thesaurus') | setlocal keywordprg=:Thesaurus | endif
+    au VimEnter * RainbowParenthesesActivate
+    au Syntax * RainbowParenthesesLoadRound
+    au Syntax * RainbowParenthesesLoadSquare
+    au Syntax * RainbowParenthesesLoadBraces
+    au Syntax * RainbowParenthesesLoadChevrons
   augroup END
 endif
 " }}}
@@ -159,7 +167,7 @@ let g:ctrlp_extensions = ['tag']
 " XPTemplate {{{
 let g:xptemplate_vars="$author=Lukas\ Galke&$email=vim@lpag.de"
 " }}}
-" PyMode{{{
+" PyMode {{{
 " let g:pymode_indent = 0
 let g:pymode_python = 'python3'
 " }}}
@@ -228,19 +236,20 @@ let g:UltiSnipsJumpForwardTrigger = "<c-j>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
 inoremap <c-x><c-k> <c-x><c-k>
 " }}}
-" python-mode {{{
-let g:pymode_lint_ignore= "E501"
-" }}}
 " }}}
 " Section: Community {{{
 " dotoo
 let g:dotoo#agenda#files = ['~/.plan/*.dotoo', '~/git/vec4ir/vec4ir.dotoo']
 " pandoc
 let g:pandoc#filetypes#pandoc_markdown = 0
-let g:pandoc#filetypes#handled = ["pandoc"]
-let g:pandoc#modules#disabled = ["menu"]
-let g:pandoc#syntax#conceal#urls = 1
-
+let g:pandoc#filetypes#handled         = ["extra", "pandoc", "rst", "textile"]
+let g:pandoc#modules#disabled          = ["menu"]
+let g:pandoc#syntax#conceal#urls       = 1
+let g:pandoc#completion#bib#mode       = 'citeproc'
+" table mode (pandoc table compatible)
+let g:table_mode_corner                = '+'
+let g:table_mode_seperator             = '|'
+let g:table_mode_fillchar              = '-'
 " }}}
 " Section: Testing {{{
 " Async {{{ "
@@ -297,8 +306,6 @@ if has('syntax') && has('eval')
 endif
 " }}} the packs "
 
-syntax on
-filetype plugin indent on
 
 if !exists('$TMUX') && v:version > 800
   " this should only be used if outside tmux
