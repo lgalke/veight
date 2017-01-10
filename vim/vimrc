@@ -52,12 +52,12 @@ let mapleader = ","
 let maplocalleader = "\\"
 
 " movement
-nmap <Tab> %
+map <Tab> %
 nnoremap H ^
 nnoremap L $
 " command line
-nnoremap + :
-nnoremap @+ @:
+noremap + :
+noremap @+ @:
 " modes
 " Convenience
 vnoremap <Space> I<Space><Esc>gv
@@ -65,9 +65,10 @@ nnoremap <Space> za
 inoremap <C-C> <Esc>`^
 nnoremap <C-S> :w<cr>
 
+
 "Quick access
 nnoremap <leader>vv :Vedit vimrc<cr>
-nnoremap <leader>vx :Vedit personal/ftplugin<cr>
+nnoremap <leader>vx :edit ~/.vim/ftplugin<cr>
 "}}}
 " Section: Commands {{{
 " command! -complete=packadd -nargs=1 Packadd packadd <args> | write | edit %
@@ -168,7 +169,6 @@ let g:ctrlp_extensions = ['tag']
 let g:xptemplate_vars="$author=Lukas\ Galke&$email=vim@lpag.de"
 " }}}
 " PyMode {{{
-" let g:pymode_indent = 0
 let g:pymode_python = 'python3'
 " }}}
 " Dispatch {{{
@@ -177,10 +177,6 @@ nnoremap <leader>d :Dispatch<cr>
 " }}}
 " Ragtag {{{
 let g:ragtag_global_maps = 1
-" }}}
-" Table-Mode {{{
-let g:table_mode_corner = '|'
-nmap <leader>,tr :TablemodeRealign<cr>
 " }}}
 " Vimtex {{{
 let g:vimtex_latexmk_continuous = 0
@@ -246,10 +242,12 @@ let g:pandoc#filetypes#handled         = ["extra", "pandoc", "rst", "textile"]
 let g:pandoc#modules#disabled          = ["menu"]
 let g:pandoc#syntax#conceal#urls       = 1
 let g:pandoc#completion#bib#mode       = 'citeproc'
-" table mode (pandoc table compatible)
+" table mode (pandoc table compatible) {{{
 let g:table_mode_corner                = '+'
 let g:table_mode_seperator             = '|'
 let g:table_mode_fillchar              = '-'
+nmap <leader>,tr :TablemodeRealign<cr>
+" }}}
 " }}}
 " Section: Testing {{{
 " Async {{{ "
@@ -287,12 +285,16 @@ augroup END
 runtime! ftplugin/man.vim
 set keywordprg=:Man
 
+if v:version > 703 && (has('python3') || has('python'))
+  packadd python-mode
+endif
+
 if !has('packages')
   " BACKWARDS COMPATIBLE
   runtime pack/core/opt/vim-pathogen/autoload/pathogen.vim
-  echom "vim < 8 compat mode by infecting with pathogen"
-  execute pathogen#infect('pack/core/start/{}', 'pack/extra/start/{}', 'pack/community/start/{}', 'pack/testing/start/{}')
-  execute pathogen#infect('pack/core/opt/{}', 'pack/extra/opt/{}', 'pack/community/opt/{}', 'pack/testing/opt/{}')
+  echom "no +packages compat mode by infecting with pathogen"
+  execute pathogen#infect('pack/core/start/{}' , 'pack/extra/start/{}' , 'pack/community/start/{}' , 'pack/testing/start/{}')
+  execute pathogen#infect('pack/core/opt/{}'   , 'pack/extra/opt/{}'   , 'pack/community/opt/{}'   , 'pack/testing/opt/{}')
 else
   packadd vim-pathogen
 endif

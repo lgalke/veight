@@ -12,3 +12,8 @@ XPTemplate priority=personal
 
 XPT psh " prints the shape of a numpy ndarray
 print("`1^.shape:", `1^.shape)
+
+XPT doctest " Do some doctest
+import doctest
+doctest.testmod(`^)
+
