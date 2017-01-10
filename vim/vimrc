@@ -113,11 +113,11 @@ if has("autocmd")
           \ | let b:surround_{char2nr('v')} = "\\verb|\r|"
           \ | let b:surround_{char2nr('V')} = "\\begin{verbatim}\n\r\n\\end{verbatim}"
     autocmd FileType tex,mail if exists(':Thesaurus') | setlocal keywordprg=:Thesaurus | endif
-    au VimEnter * if exists(':RainbowParenthesesActivate') | RainbowParenthesesActivate | endif
-    au Syntax * if exists(':RainbowParenthesesLoadRound') | RainbowParenthesesLoadRound | endif
-    au Syntax * if exists(':RainbowParenthesesLoadSquare') | RainbowParenthesesLoadSquare | endif
-    au Syntax * if exists(':RainbowParenthesesLoadBraces') | RainbowParenthesesLoadBraces | endif
-    au Syntax * if exists(':RainbowParenthesesLoadChevrons') | RainbowParenthesesLoadChevrons | endif
+    au VimEnter * RainbowParenthesesActivate
+    au Syntax * RainbowParenthesesLoadRound
+    au Syntax * RainbowParenthesesLoadSquare
+    au Syntax * RainbowParenthesesLoadBraces
+    au Syntax * RainbowParenthesesLoadChevrons
   augroup END
 endif
 " }}}
