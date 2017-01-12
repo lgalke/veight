@@ -17,3 +17,10 @@ XPT doctest " Do some doctest
 import doctest
 doctest.testmod(`^)
 
+XPT progress " simple progress bar
+`prg^ = 100 * (`iter^ + 1) / `iter_max^
+print('\r{0:10} {1:3.0f}%'.format("#" * int(`prg^//10), `prg^), flush=True, end='')
+
+XPT printf " print format
+print("`format_string^".format(`object^))
+
