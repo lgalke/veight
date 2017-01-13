@@ -26,7 +26,7 @@
 	path = vim/pack/community/opt/vim-vividchalk
 	url = https://github.com/tpope/vim-vividchalk.git
 [submodule "vim/testing/VimCompletesMe"]
-	path = vim/pack/extra/start/VimCompletesMe
+	path = vim/pack/extra/opt/VimCompletesMe
 	url = https://github.com/ajh17/VimCompletesMe.git
 [submodule "vim/extra/vim-python-pep8-indent"]
 	path = vim/extra/vim-python-pep8-indent

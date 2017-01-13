@@ -315,10 +315,15 @@ if has('packages')
     packadd neosnippet-snippets
     packadd neco-vim
   else
-    packadd completor.vim
+
     if (has('python') || has('python3'))
       packadd vim-snippets
       packadd ultisnips
+    endif
+    if (has('python') || has('python3')) && has('jobs') && has('timers') && has('lambda')
+      packadd completor.vim
+    else
+      packadd VimCompletesMe
     endif
   endif
 
