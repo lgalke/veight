@@ -188,5 +188,5 @@
 	path = vim/pack/extra/start/FastFold
 	url = https://github.com/Konfekt/FastFold.git
 [submodule "vim/pack/extra/start/neco-vim"]
-	path = vim/pack/extra/start/neco-vim
+	path = vim/pack/extra/opt/neco-vim
 	url = https://github.com/Shougo/neco-vim.git

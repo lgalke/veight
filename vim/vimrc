@@ -1,7 +1,5 @@
 set nocompatible
 
-syntax on
-filetype plugin indent on
 
 " Section: Basic Options {{{
 set autowrite
@@ -113,11 +111,6 @@ if has("autocmd")
           \ | let b:surround_{char2nr('v')} = "\\verb|\r|"
           \ | let b:surround_{char2nr('V')} = "\\begin{verbatim}\n\r\n\\end{verbatim}"
     autocmd FileType tex,mail if exists(':Thesaurus') | setlocal keywordprg=:Thesaurus | endif
-    au VimEnter * RainbowParenthesesActivate
-    au Syntax * RainbowParenthesesLoadRound
-    au Syntax * RainbowParenthesesLoadSquare
-    au Syntax * RainbowParenthesesLoadBraces
-    au Syntax * RainbowParenthesesLoadChevrons
   augroup END
 endif
 " }}}
@@ -232,6 +225,17 @@ let g:UltiSnipsJumpForwardTrigger = "<c-j>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
 inoremap <c-x><c-k> <c-x><c-k>
 " }}}
+" neocomplete {{{
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+" }}}
+" neosnippet {{{
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+" }}}
 " }}}
 " Section: Community {{{
 " dotoo
@@ -279,46 +283,55 @@ augroup END
 " }}}
 " }}}
 " the packs {{{ "
-" need to load vimtex as usual
 
 " Provides :Man
 runtime! ftplugin/man.vim
 set keywordprg=:Man
 
-if v:version > 703 && (has('python3') || has('python'))
-  packadd python-mode
-endif
-
-if !has('packages')
+if has('packages')
+  if has("lua") && v:version > 738
+    packadd neocomplete.vim
+    packadd neosnippet.vim
+    packadd neosnippet-snippets
+    packadd neco-vim
+  endif
+  if v:version > 703 && (has('python3') || has('python'))
+    packadd python-mode
+  endif
+  packadd vim-pathogen
+  if has('syntax') && has('eval')
+    packadd matchit
+  endif
+else
   " BACKWARDS COMPATIBLE
   runtime pack/core/opt/vim-pathogen/autoload/pathogen.vim
-  echom "no +packages compat mode by infecting with pathogen"
+  echom "no +packages. compat mode by infecting with pathogen"
   execute pathogen#infect('pack/core/start/{}' , 'pack/extra/start/{}' , 'pack/community/start/{}' , 'pack/testing/start/{}')
-  execute pathogen#infect('pack/core/opt/{}'   , 'pack/extra/opt/{}'   , 'pack/community/opt/{}'   , 'pack/testing/opt/{}')
-else
-  packadd vim-pathogen
+  " execute pathogen#infect('pack/core/opt/{}'   , 'pack/extra/opt/{}'   , 'pack/community/opt/{}'   , 'pack/testing/opt/{}')
 endif
+" need to load vimtex as usual
 execute pathogen#infect('bundle/{}')
 
-" letz try to run xptemplate all the time
-packadd xptemplate
-
-if has('syntax') && has('eval')
-  packadd matchit
-endif
 " }}} the packs "
-
 
 if !exists('$TMUX') && v:version > 800
   " this should only be used if outside tmux
   set termguicolors
 endif
 
-if filereadable('Session.vim') && argc() == 0
-  " restore session if file is present in directory and vim was
-  " started without arguments, do BufRead autocommands after
-  source Session.vim
-endif
-
+syntax on
+filetype plugin indent on
 set background=dark
 silent! colo gruvbox
+
+if has("autocmd")
+  " Must be placed after syntax on
+  augroup rainbow
+    au!
+    au VimEnter * RainbowParenthesesActivate
+    au Syntax * RainbowParenthesesLoadRound
+    au Syntax * RainbowParenthesesLoadSquare
+    au Syntax * RainbowParenthesesLoadBraces
+    au Syntax * RainbowParenthesesLoadChevrons
+  augroup END
+endif
