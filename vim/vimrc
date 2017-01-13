@@ -163,6 +163,8 @@ let g:xptemplate_vars="$author=Lukas\ Galke&$email=vim@lpag.de"
 " }}}
 " PyMode {{{
 let g:pymode_python = 'python3'
+let g:pymode_lint_unmodified = 1
+let g:pymode_rope_complete_on_dot = 0 " leave this to completion engine
 " }}}
 " Dispatch {{{
 nnoremap <leader>m :Make<cr>
@@ -228,8 +230,25 @@ inoremap <c-x><c-k> <c-x><c-k>
 " neocomplete {{{
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
+inoremap <expr><Tab>  neocomplete#start_manual_complete()
 inoremap <expr><C-g>     neocomplete#undo_completion()
 inoremap <expr><C-l>     neocomplete#complete_common_string()
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+let g:neocomplete#sources#omni#input_patterns.tex =
+      \ '\v\\%('
+      \ . '\a*cite\a*%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
+      \ . '|\a*ref%(\s*\{[^}]*|range\s*\{[^,}]*%(}\{)?)'
+      \ . '|hyperref\s*\[[^]]*'
+      \ . '|includegraphics\*?%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
+      \ . '|%(include%(only)?|input)\s*\{[^}]*'
+      \ . '|\a*(gls|Gls|GLS)(pl)?\a*%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
+      \ . '|includepdf%(\s*\[[^]]*\])?\s*\{[^}]*'
+      \ . '|includestandalone%(\s*\[[^]]*\])?\s*\{[^}]*'
+      \ . ')'
+" let g:neocomplete#sources#omni#input_patterns.python =
+"       \ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?'
 " }}}
 " neosnippet {{{
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -282,23 +301,34 @@ augroup VimCompletesMeTex
 augroup END
 " }}}
 " }}}
-" the packs {{{ "
+" Section: the packs {{{ "
 
 " Provides :Man
 runtime! ftplugin/man.vim
 set keywordprg=:Man
 
 if has('packages')
-  if has("lua") && v:version > 738
+  " chose snippet engine and completor
+  if 0 && has("lua") && v:version > 738
     packadd neocomplete.vim
     packadd neosnippet.vim
     packadd neosnippet-snippets
     packadd neco-vim
+  else
+    packadd completor.vim
+    if (has('python') || has('python3'))
+      packadd vim-snippets
+      packadd ultisnips
+    endif
   endif
+
   if v:version > 703 && (has('python3') || has('python'))
     packadd python-mode
   endif
+
   packadd vim-pathogen
+  execute pathogen#infect('bundle/{}')
+
   if has('syntax') && has('eval')
     packadd matchit
   endif
@@ -310,7 +340,6 @@ else
   " execute pathogen#infect('pack/core/opt/{}'   , 'pack/extra/opt/{}'   , 'pack/community/opt/{}'   , 'pack/testing/opt/{}')
 endif
 " need to load vimtex as usual
-execute pathogen#infect('bundle/{}')
 
 " }}} the packs "
 
