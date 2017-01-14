@@ -1,6 +1,14 @@
+" Compatibility and Dynamic Python {{{
 set nocompatible
-
-
+if has('python3') " if dynamic py|py3 support is enabled, this line already activates python 3.
+  let s:python_version = 3
+elseif has('python')
+  let s:python_version = 2
+else
+  let s:python_version = 0
+endif
+echomsg 'Using python'.s:python_version
+" }}}
 " Section: Basic Options {{{
 set autowrite
 set foldmethod=marker
@@ -37,7 +45,7 @@ set wildignore+=*.js,*.map
 set wildmode=longest:full,full
 
 " vim8 specific
-if v:version > 800
+if v:version >= 800
   set signcolumn=yes
 endif
 " }}}
@@ -76,7 +84,7 @@ command! -bar -nargs=0 Helptags silent! helptags ALL
 function! s:Tags() abort
   silent let dir = system("git rev-parse --show-toplevel")
   if v:shell_error
-    let tagsfile = "tags"
+    let tagsfile = "./tags"
   else
     let tagsfile = dir . "/.git/tags"
   endif
@@ -149,6 +157,7 @@ nmap <leader>gm :Gmerge<cr>
 " Tabular {{{
 nnoremap <leader>t= :Tabularize /=/
 nnoremap <leader>t& :Tabularize /&/
+nnoremap <leader>t# :Tabularize /#/
 " }}}
 " CtrlP {{{
 let g:ctrlp_map = '<leader>,'
@@ -158,6 +167,9 @@ let g:ctrlp_extensions = ['tag']
 " }}}
 " }}}
 " Section: Extra {{{
+" ack {{{
+let g:ack_use_dispatch = 1
+" }}}
 " XPTemplate {{{
 let g:xptemplate_vars="$author=Lukas\ Galke&$email=vim@lpag.de"
 " }}}
@@ -274,8 +286,8 @@ nmap <leader>,tr :TablemodeRealign<cr>
 " }}}
 " Section: Testing {{{
 " Async {{{ "
-nnoremap <leader>at :AsyncRun ctags -R<cr>
-nnoremap <leader>ao :AsyncRun okular %:r.pdf
+nnoremap <leader>a :Ack!<space>
+nnoremap <leader>b :AsyncRun
 " }}} Async "
 " Signify {{{
 let g:signify_vcs_list = [ 'git' ]
@@ -309,26 +321,24 @@ set keywordprg=:Man
 
 if has('packages')
   " chose snippet engine and completor
-  if 0 && has("lua") && v:version > 738
+  if v:version > 703 && s:python_version
+    packadd python-mode
+  endif
+  if has("lua") && v:version > 738
     packadd neocomplete.vim
     packadd neosnippet.vim
     packadd neosnippet-snippets
     packadd neco-vim
   else
-
-    if (has('python') || has('python3'))
+    if s:python_version
       packadd vim-snippets
       packadd ultisnips
     endif
-    if (has('python') || has('python3')) && has('jobs') && has('timers') && has('lambda')
+    if s:python_version && has('job') && has('timers') && has('lambda')
       packadd completor.vim
     else
       packadd VimCompletesMe
     endif
-  endif
-
-  if v:version > 703 && (has('python3') || has('python'))
-    packadd python-mode
   endif
 
   packadd vim-pathogen
@@ -348,14 +358,14 @@ endif
 
 " }}} the packs "
 
-if !exists('$TMUX') && v:version > 800
+if !exists('$TMUX') && has('termguicolors')
   " this should only be used if outside tmux
   set termguicolors
 endif
 
 syntax on
 filetype plugin indent on
-set background=dark
+set background=light
 silent! colo gruvbox
 
 if has("autocmd")

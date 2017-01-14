@@ -134,7 +134,7 @@
 	path = vim/pack/core/start/vim-sensible
 	url = https://github.com/tpope/vim-sensible.git
 [submodule "vim/pack/extra/start/vim-dispatch"]
-	path = vim/pack/extra/start/vim-dispatch
+	path = vim/pack/core/start/vim-dispatch
 	url = https://github.com/tpope/vim-dispatch.git
 [submodule "vim/pack/extra/start/vim-projectionist"]
 	path = vim/pack/extra/start/vim-projectionist
@@ -190,3 +190,6 @@
 [submodule "vim/pack/extra/start/neco-vim"]
 	path = vim/pack/extra/opt/neco-vim
 	url = https://github.com/Shougo/neco-vim.git
+[submodule "vim/pack/extra/start/ack.vim"]
+	path = vim/pack/core/start/ack.vim
+	url = https://github.com/mileszs/ack.vim.git
