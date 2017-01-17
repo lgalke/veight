@@ -1,13 +1,13 @@
 " Compatibility and Dynamic Python {{{
 set nocompatible
-if has('python3') " if dynamic py|py3 support is enabled, this line already activates python 3.
-  let s:python_version = 3
-elseif has('python')
+if has('python') " if dynamic py|py3 support is enabled, this line already activates python 3.
   let s:python_version = 2
+elseif has('python3')
+  let s:python_version = 3
 else
   let s:python_version = 0
 endif
-echomsg 'Using python'.s:python_version
+" echomsg 'Using python'.s:python_version
 " }}}
 " Section: Basic Options {{{
 set autowrite
@@ -18,6 +18,7 @@ set ignorecase smartcase
 set showcmd
 set showmatch
 set wrap
+set cursorline cursorcolumn
 if has("linebreak")
   " dont break in the middle of a word
   set linebreak
@@ -105,10 +106,9 @@ if has("autocmd")
     " make useful dispatch
     autocmd FileType pandoc let b:dispatch=":Pandoc pdf"
     autocmd FileType dot let b:dispatch="dot -Tpdf -o %:r.pdf %"
-    " guess the dispatch
+    " guess the dispatch by shebang
     autocmd BufReadPost * if getline(1) =~# '^#!' | let b:dispatch = getline(1)[2:-1] . ' %' | let b:start = b:dispatch | endif
     autocmd FileType html setlocal foldmethod=marker foldmarker=<div,/div> iskeyword+=-
-    " autocmd FileType pandoc,tex let b:AutoPairs = {'(':')','[':']','{':'}', '$':'$', '`':'`'}
     if exists("+omnifunc")
       autocmd Filetype * if &omnifunc == "" | setlocal omnifunc=syntaxcomplete#Complete | endif
     endif
@@ -217,6 +217,8 @@ let g:loc_list_height                    = 5
 let g:syntastic_aggregate_errors         = 1
 let g:syntastic_id_checkers              = 1
 let g:syntastic_auto_loc_list            = 0
+let g:tsuquyomi_disable_quickfix = 1
+let g:syntastic_typescript_checkers = ['tsuquyomi'] " You shouldn't use 'tsc' checker.
 " invoke error loc list manually
 nmap <silent> <leader>e :Errors<CR>
 " tex checker
@@ -263,6 +265,7 @@ let g:neocomplete#sources#omni#input_patterns.tex =
 "       \ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?'
 " }}}
 " neosnippet {{{
+let g:neosnippet#enable_snipmate_compatibility = 1
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
@@ -287,7 +290,7 @@ nmap <leader>,tr :TablemodeRealign<cr>
 " Section: Testing {{{
 " Async {{{ "
 nnoremap <leader>a :Ack!<space>
-nnoremap <leader>b :AsyncRun
+nnoremap & :AsyncRun<space>
 " }}} Async "
 " Signify {{{
 let g:signify_vcs_list = [ 'git' ]
@@ -320,10 +323,11 @@ runtime! ftplugin/man.vim
 set keywordprg=:Man
 
 if has('packages')
+  packadd syntastic
   " chose snippet engine and completor
-  if v:version > 703 && s:python_version
-    packadd python-mode
-  endif
+  " if v:version > 703 && s:python_version
+  "   packadd python-mode
+  " endif
   if has("lua") && v:version > 738
     packadd neocomplete.vim
     packadd neosnippet.vim

@@ -193,3 +193,24 @@
 [submodule "vim/pack/extra/start/ack.vim"]
 	path = vim/pack/core/start/ack.vim
 	url = https://github.com/mileszs/ack.vim.git
+[submodule "vim/pack/extra/start/tsuquyomi"]
+	path = vim/pack/extra/start/tsuquyomi
+	url = https://github.com/Quramy/tsuquyomi.git
+[submodule "vim/pack/extra/start/typescript-vim"]
+	path = vim/pack/extra/start/typescript-vim
+	url = https://github.com/leafgarland/typescript-vim.git
+[submodule "vim/pack/extra/start/vim-js-pretty-template"]
+	path = vim/pack/extra/start/vim-js-pretty-template
+	url = https://github.com/Quramy/vim-js-pretty-template.git
+[submodule "vim/pack/extra/start/vim-js-indent"]
+	path = vim/pack/extra/start/vim-js-indent
+	url = https://github.com/jason0x43/vim-js-indent.git
+[submodule "vim/pack/extra/start/ng-tsserver"]
+	path = vim/pack/extra/start/ng-tsserver
+	url = https://github.com/Quramy/ng-tsserver.git
+[submodule "vim/pack/extra/opt/vimproc.vim"]
+	path = vim/pack/extra/start/vimproc.vim
+	url = https://github.com/Shougo/vimproc.vim.git
+[submodule "vim/pack/extra/start/vim-python-pep8-indent"]
+	path = vim/pack/extra/start/vim-python-pep8-indent
+	url = https://github.com/hynek/vim-python-pep8-indent.git
