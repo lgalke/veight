@@ -178,6 +178,9 @@ let g:pymode_python = 'python3'
 let g:pymode_lint_unmodified = 1
 let g:pymode_rope_complete_on_dot = 0 " leave this to completion engine
 " }}}
+" pep8 indent {{{
+let g:python_pep8_indent_multiline_string = 1
+" }}}
 " Dispatch {{{
 nnoremap <leader>m :Make<cr>
 nnoremap <leader>d :Dispatch<cr>
