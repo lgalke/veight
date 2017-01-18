@@ -247,7 +247,7 @@ inoremap <c-x><c-k> <c-x><c-k>
 " neocomplete {{{
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
-inoremap <expr><Tab>  neocomplete#start_manual_complete()
+" inoremap <expr><Tab>  neocomplete#start_manual_complete()
 inoremap <expr><C-g>     neocomplete#undo_completion()
 inoremap <expr><C-l>     neocomplete#complete_common_string()
 if !exists('g:neocomplete#sources#omni#input_patterns')
@@ -319,7 +319,7 @@ augroup VimCompletesMeTex
 augroup END
 " }}}
 " }}}
-" Section: the packs {{{ "
+" Section: The Packs {{{ "
 
 " Provides :Man
 runtime! ftplugin/man.vim
@@ -346,13 +346,14 @@ if has('packages')
     else
       packadd VimCompletesMe
     endif
-  endif
-
-  packadd vim-pathogen
-  execute pathogen#infect('bundle/{}')
-
-  if has('syntax') && has('eval')
-    packadd matchit
+    if s:python_version
+      packadd jedi-vim
+    endif
+    packadd vim-pathogen
+    execute pathogen#infect('bundle/{}')
+    if has('syntax') && has('eval')
+      packadd matchit
+    endif
   endif
 else
   " BACKWARDS COMPATIBLE

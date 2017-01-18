@@ -210,4 +210,7 @@
 	url = https://github.com/hynek/vim-python-pep8-indent.git
 [submodule "vim/pack/core/start/ctrlp.vim"]
 	path = vim/pack/core/start/ctrlp.vim
-	url = https://github.com/ctrlpvim/ctrlp.vim
+	url = https://github.com/ctrlpvim/ctrlp.vim.git
+[submodule "vim/pack/extra/start/jedi-vim"]
+	path = vim/pack/extra/opt/jedi-vim
+	url = https://github.com/davidhalter/jedi-vim.git
