@@ -144,6 +144,7 @@ augroup veight_flagship
   autocmd User Flags call Hoist("window", +10, {"hl": ['WarningMsg','StatusLineNC']}, 'SyntasticStatuslineFlag')
   autocmd User Flags call Hoist("buffer", 0, hl_as_usual, '%{g:asyncrun_status}')
   autocmd User Flags call Hoist("window", -10, hl_as_usual, "%{tagbar#currenttag('[%s]', '')}")
+  autocmd User Flags call Hoist("global", 0, hl_as_usual, "[%{&cpoptions}]")
 augroup END
 " }}}
 " Fugitive {{{
@@ -196,7 +197,7 @@ let g:vimtex_latexmk_callback = 0
 " let g:vimtex_imaps_leader = '`'
 
 let g:vimtex_view_general_viewer = 'okular'
-let g:vimtex_view_general_options = '--unique @pdf\#src:@line@tex'
+let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
 let g:vimtex_view_general_options_latexmk = '--unique'
 
 let g:vimtex_fold_enabled = 1
@@ -234,7 +235,10 @@ let g:syntastic_tex_chktex_args = "-n1 -n8 -n36"
 let g:syntastic_python_checkers = ['python', 'flake8']
 let g:syntastic_python_python_exec = '/usr/bin/python3'
 let g:syntastic_python_flake8_exec = '/usr/bin/python3'
-let g:syntastic_python_flake8_args = '-m flake8 --ignore=E501,E203'
+" E402 : module level import not at top of file
+let g:syntastic_python_flake8_args = '-m flake8 --ignore=E501,E203,E402'
+
+nnoremap <leader>e :Errors<CR>
 " }}}
 " UltiSnips {{{
 let g:UltiSnipsSnippetsDir = "~/.vim/UltiSnips"
@@ -323,6 +327,7 @@ augroup END
 
 " Provides :Man
 runtime! ftplugin/man.vim
+" default keyword prg, filetype specific may still be overwritten by autocmds
 set keywordprg=:Man
 
 if has('packages')
@@ -346,15 +351,16 @@ if has('packages')
     else
       packadd VimCompletesMe
     endif
-    if s:python_version
-      packadd jedi-vim
-    endif
-    packadd vim-pathogen
-    execute pathogen#infect('bundle/{}')
-    if has('syntax') && has('eval')
-      packadd matchit
-    endif
   endif
+  if s:python_version
+    packadd jedi-vim
+  endif
+  if has('syntax') && has('eval')
+    packadd matchit
+  endif
+  " need to load vimtex as usual
+  packadd vim-pathogen
+  execute pathogen#infect('bundle/{}')
 else
   " BACKWARDS COMPATIBLE
   runtime pack/core/opt/vim-pathogen/autoload/pathogen.vim
@@ -362,7 +368,6 @@ else
   execute pathogen#infect('pack/core/start/{}' , 'pack/extra/start/{}' , 'pack/community/start/{}' , 'pack/testing/start/{}')
   " execute pathogen#infect('pack/core/opt/{}'   , 'pack/extra/opt/{}'   , 'pack/community/opt/{}'   , 'pack/testing/opt/{}')
 endif
-" need to load vimtex as usual
 
 " }}} the packs "
 
@@ -373,7 +378,7 @@ endif
 
 syntax on
 filetype plugin indent on
-set background=light
+set background=dark
 silent! colo gruvbox
 
 if has("autocmd")

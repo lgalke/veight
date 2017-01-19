@@ -214,3 +214,6 @@
 [submodule "vim/pack/extra/start/jedi-vim"]
 	path = vim/pack/extra/opt/jedi-vim
 	url = https://github.com/davidhalter/jedi-vim.git
+[submodule "vim/pack/core/start/vim-sneak"]
+	path = vim/pack/core/start/vim-sneak
+	url = https://github.com/justinmk/vim-sneak.git
