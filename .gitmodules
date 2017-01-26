@@ -217,3 +217,9 @@
 [submodule "vim/pack/core/start/vim-sneak"]
 	path = vim/pack/core/start/vim-sneak
 	url = https://github.com/justinmk/vim-sneak.git
+[submodule "vim/pack/extra/start/indentline"]
+	path = vim/pack/extra/start/indentline
+	url = https://github.com/yggdroot/indentline.git
+[submodule "vim/pack/extra/start/SimpylFold"]
+	path = vim/pack/extra/start/SimpylFold
+	url = https://github.com/tmhedberg/SimpylFold.git
